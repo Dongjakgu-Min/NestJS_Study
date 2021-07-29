@@ -1,15 +1,16 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Memo } from './memo/memo.entity';
 import { User } from './user/user.entity';
+import { Auth } from './auth/auth.entity';
 
 const AppDatabase = TypeOrmModule.forRoot({
-  type: 'postgres',
+  type: 'mariadb',
   host: 'localhost',
-  port: 5432,
+  port: 3306,
   username: 'nest',
   password: 'password',
   database: 'nest',
-  entities: [Memo, User],
+  entities: [Memo, User, Auth],
   synchronize: true,
 });
 export default AppDatabase;
