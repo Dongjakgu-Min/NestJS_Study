@@ -20,10 +20,11 @@ export class MemoService {
     return this.memoRepository.findOne(id);
   }
 
-  async createOne(createMemoDto: CreateMemoDto): Promise<Memo> {
+  async createOne(createMemoDto: CreateMemoDto, userInfo): Promise<Memo> {
     const memo = new Memo();
     memo.title = createMemoDto.title;
     memo.content = createMemoDto.content;
+    memo.userId = userInfo.id;
 
     return this.memoRepository.save(memo);
   }

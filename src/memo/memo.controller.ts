@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Request } from '@nestjs/common';
 import { MemoService } from './memo.service';
 import { Memo } from './memo.entity';
 import { CreateMemoDto } from './memo.dto';
@@ -14,7 +14,7 @@ export class MemoController {
 
   @Post()
   @HttpCode(201)
-  async create(@Body() createMemoDto: CreateMemoDto) {
-    return this.memoService.createOne(createMemoDto);
+  async create(@Request() req, @Body() createMemoDto: CreateMemoDto) {
+    return this.memoService.createOne(createMemoDto, req.user);
   }
 }
