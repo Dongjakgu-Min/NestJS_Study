@@ -15,6 +15,5 @@ export class UserController {
   @HttpCode(201)
   async createUser(@Body() userDto: UserDto) {
     await this.userService.signUp(userDto);
-    return;
   }
 }

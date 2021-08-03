@@ -8,7 +8,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserDto } from '../user/user.dto';
-import { AuthGuard } from './auth.guard';
+import { AccessTokenGuard } from './guard/guard.accessToken';
+import { RefreshTokenGuard } from './guard/guard.refreshToken';
 
 @Controller('auth')
 export class AuthController {
@@ -19,9 +20,15 @@ export class AuthController {
     return this.authService.login(userDto);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessTokenGuard)
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('accessToken')
+  async getAccessToken(@Request() req) {
+    return this.authService.generateAccessToken(req.headers['refresh_token']);
   }
 }
